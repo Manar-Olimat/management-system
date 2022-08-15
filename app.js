@@ -1,14 +1,4 @@
-/**
- *
- * 
- * You will create a function for calculating the 
-salary using the provided table by generating 
-a random number between the minimum and 
-maximum salary for each level, 
-use the below table to calculate the salary depends on the employee level.
 
-
- */
 
 
 function Employee(empId, fullName, department, level, imgUrl) {
@@ -42,26 +32,73 @@ function Employee(empId, fullName, department, level, imgUrl) {
         return sal;
     }
 
-    this.printInfo = function () {
-        console.log('Employee name: ' + this.fullName + '\t\tSalary: ' + this.salary);
+    function insertRow(obj) {
+        //create row and insert data to it
+        let row = document.createElement('tr');
+        let cell;
+        for (const key in obj) {
+            if (key == Object.keys(obj)[5]) {
+                break;
+            }
+            cell = document.createElement('td');
+            cell.textContent = obj[key];
+            cell.style.border='1px solid black';
+            row.appendChild(cell);
+        }
+        return row;
+    }
+
+    this.info = function () {
+        // console.log('Employee name: ' + this.fullName + '\t\tSalary: ' + this.salary);
+        return insertRow(this);
     }
 }
 
 //employees instances
-const emp1 = new Employee(1000, 'Ghazi Samer', 'Adminstration', 'Senior');
-const emp2 = new Employee(1001, 'Lana Ali', 'Finance', 'Senior');
-const emp3 = new Employee(1002, 'Tamara Ayoub', 'Markiting', 'Senior');
-const emp4 = new Employee(1003, 'Safi Walid', 'Adminstration', 'Mid-Senior');
-const emp5 = new Employee(1004, 'Omar Zaid', 'Development', 'Senior');
-const emp6 = new Employee(1005, 'Rana Saleh', 'Development', 'Junior');
-const emp7 = new Employee(1006, 'Hadi Ahamd', 'Finance', 'Mid-Senior');
+const empArr = [new Employee(1000, 'Ghazi Samer', 'Adminstration', 'Senior'),
+new Employee(1001, 'Lana Ali', 'Finance', 'Senior'),
+new Employee(1002, 'Tamara Ayoub', 'Markiting', 'Senior'),
+new Employee(1003, 'Safi Walid', 'Adminstration', 'Mid-Senior'),
+new Employee(1004, 'Omar Zaid', 'Development', 'Senior'),
+new Employee(1005, 'Rana Saleh', 'Development', 'Junior'),
+new Employee(1006, 'Hadi Ahamd', 'Finance', 'Mid-Senior')];
 
-emp1.printInfo();
-emp2.printInfo();
-emp3.printInfo();
-emp4.printInfo();
-emp5.printInfo();
-emp6.printInfo();
-emp7.printInfo();
 
-console.log(Math.floor(Math.random() * (100 - 50) + 50))
+
+
+//create table
+
+let table = document.createElement('table');
+table.style.border = '2px solid blueviolet';
+table.style.width='700px'
+table.style.textAlign='center';
+table.style.position='relative';
+table.style.left='350px';
+table.style.top='150px';
+document.body.querySelector('main').appendChild(table);
+
+// create and insert table head
+let tHead = document.createElement('thead');
+let th;
+for (const key in empArr[0]) {
+    if (key == Object.keys(empArr[0])[5]) {
+        break;
+
+    }
+th=document.createElement('th');
+th.textContent=key;
+th.style.border='1px solid black';
+th.style.font='20px bold Arial, sans-serif'
+tHead.appendChild(th);
+}
+table.appendChild(tHead);
+
+// create and insert table rows
+let row;
+for (const e of empArr) {
+    row= e.info();
+       table.appendChild(row);
+}
+
+
+
