@@ -1,3 +1,17 @@
+#div1{
+    /* display: inline-block; */
+position: relative;
+top: 50px;
+left: 40%;}
+h1{
+    font-size: 48px;
+    font-weight: bolder;
+    color: rgb(63, 69, 89);
+}
+h6{
+    font-size: 24px;
+    font-style:italic ;
+}
 footer{
 position: relative;
 bottom: -350px;
