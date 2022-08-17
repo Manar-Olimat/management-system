@@ -16,3 +16,55 @@ footer{
 position: relative;
 bottom: -350px;
 display: block;}
+
+/* input, select, button {
+    width : 150px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  } */
+  body {
+    font-family: system-ui, sans-serif
+  }
+  
+  form div {
+    margin-top: 1rem;
+  }
+  
+  label,
+  input,
+  textarea
+  button,
+  select{
+    font-size: 1.3rem;
+    line-height: 1.2
+  }
+  
+  form {
+    width: 30em;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  label {
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  
+  input,
+  textarea {
+    padding: 0.4rem;
+    width: 100%;
+  }
+  
+  button {
+    height: 40px;
+    font-size: 22px;
+    margin-top: 2rem;
+    background: #3740ff;
+  color: #fff;
+  }
+  button:hover,
+button:focus {
+  background: #272eb5
+}

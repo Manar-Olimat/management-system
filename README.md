@@ -6,6 +6,8 @@
 
 ## Task1 14/08/2022
 ## Task 2 15/08/2022
+## Task 3 17/08/2022
+### Event listeners 
 
 
 

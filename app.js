@@ -1,6 +1,6 @@
 
 
-
+//emp constructor
 function Employee(empId, fullName, department, level, imgUrl) {
     if (!new.target) {
         throw Error("Cannot be called without the new keyword");
@@ -10,6 +10,7 @@ function Employee(empId, fullName, department, level, imgUrl) {
     this.fullName = fullName;
     this.department = department;
     this.level = level;
+    this.imgUrl=imgUrl
     this.salary = calcSalary();
 
     function calcSalary() {
@@ -32,73 +33,90 @@ function Employee(empId, fullName, department, level, imgUrl) {
         return sal;
     }
 
-    function insertRow(obj) {
-        //create row and insert data to it
-        let row = document.createElement('tr');
-        let cell;
-        for (const key in obj) {
-            if (key == Object.keys(obj)[5]) {
-                break;
-            }
-            cell = document.createElement('td');
-            cell.textContent = obj[key];
-            cell.style.border='1px solid black';
-            row.appendChild(cell);
-        }
-        return row;
-    }
+
 
     this.info = function () {
-        // console.log('Employee name: ' + this.fullName + '\t\tSalary: ' + this.salary);
-        return insertRow(this);
+        // return insertRow(this);
     }
 }
 
 //employees instances
-const empArr = [new Employee(1000, 'Ghazi Samer', 'Adminstration', 'Senior'),
-new Employee(1001, 'Lana Ali', 'Finance', 'Senior'),
-new Employee(1002, 'Tamara Ayoub', 'Markiting', 'Senior'),
-new Employee(1003, 'Safi Walid', 'Adminstration', 'Mid-Senior'),
-new Employee(1004, 'Omar Zaid', 'Development', 'Senior'),
-new Employee(1005, 'Rana Saleh', 'Development', 'Junior'),
-new Employee(1006, 'Hadi Ahamd', 'Finance', 'Mid-Senior')];
+const empArr =new Array();
+
+
+// .............................................................................................................
+// .............................................................................................................
+const form=document.querySelector('form');
+// const formData=new FormData(form);
+// const val=new Array();
+const id=form.elements['id']; 
+const fullName=form.elements['fullName'];
+const dept=form.elements['dept'];
+const level=form.elements['level'];
+const profileImg=form.elements['profileImg'];
+
+
+// on submit push new object,,, store in local ,,, create new card
+form.addEventListener('submit',function(e){
+    e.preventDefault();
+   console.log(id.value) ; 
+   empArr.push(new Employee(id.value,fullName.value,dept.value,level.value,profileImg.value));
+   empArr[empArr.length-1].info();
+   window.localStorage.setItem('Employee',JSON.stringify(empArr));
+   console.log(empArr) ; 
+insertCard(empArr[empArr.length-1]);
+
+
+
+});
 
 
 
 
-//create table
+function insertCard(employee){
+    const br=document.createElement('br');
+    document.querySelector('main').appendChild(br);
+    //row
+const row=document.createElement('div');
+row.className='row';
+document.querySelector('main').appendChild(row);
 
-let table = document.createElement('table');
-table.style.border = '2px solid blueviolet';
-table.style.width='700px'
-table.style.textAlign='center';
-table.style.position='relative';
-table.style.left='350px';
-table.style.top='150px';
-document.body.querySelector('main').appendChild(table);
+    //col
+const col=document.createElement('div');
+col.className='col-sm-6';
+row.appendChild(col);
 
-// create and insert table head
-let tHead = document.createElement('thead');
-let th;
-for (const key in empArr[0]) {
-    if (key == Object.keys(empArr[0])[5]) {
-        break;
+//outer card
+const card=document.createElement('div');
+card.className='card';
+card.style.width='18rem';
+col.appendChild(card);
 
-    }
-th=document.createElement('th');
-th.textContent=key;
-th.style.border='1px solid black';
-th.style.font='20px bold Arial, sans-serif'
-tHead.appendChild(th);
+// img
+const img=document.createElement('img');
+img.src=profileImg.value;
+img.className='card-img-top';
+card.appendChild(img);
+
+// card body
+const cardBody=document.createElement('div');
+cardBody.className='card-body';
+col.appendChild(cardBody);
+
+//title
+const cardTitle=document.createElement('h5');
+cardTitle.className='card-title';
+cardTitle.textContent='Employee Data';
+cardBody.appendChild(cardTitle);
+
+//text
+
+
+
+const cardText=document.createElement('p');
+cardText.className='card-text';
+cardText.textContent='ID: '+employee.empId + '\nFull Name: '+ employee.fullName+ 
+'\nDepartment: '+employee.department+ '\nLevel: '+employee.level + '\nSalary'+employee.salary;
+cardBody.appendChild(cardText);
 }
-table.appendChild(tHead);
-
-// create and insert table rows
-let row;
-for (const e of empArr) {
-    row= e.info();
-       table.appendChild(row);
-}
-
-
 
